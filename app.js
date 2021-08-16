@@ -68,7 +68,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 app.get("/", function(req, res){
-  res.render("home");
+  res.send("welcome to backend");
 });
 app.get("/login", function(req, res){
   res.render("login");
