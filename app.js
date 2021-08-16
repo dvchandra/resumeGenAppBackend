@@ -23,7 +23,7 @@ app.use(express.static("public"));
 app.set("view engine","ejs");
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://resumegenapp.herokuapp.com/',
     credentials: true,
   })
 );
