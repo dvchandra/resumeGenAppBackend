@@ -21,12 +21,20 @@ app.use(session({
 }));
 app.use(express.static("public"));
 app.set("view engine","ejs");
-app.use(
-  cors({
-    origin: 'https://resumegenapp.herokuapp.com/',
-    credentials: true,
-  })
-);
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://resumegenapp.herokuapp.com','https://resume-genapp-bend.herokuapp.com']
+const corsOptions = {
+  origin: function (origin, callback) {
+    console.log("** Origin of request " + origin)
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      console.log("Origin acceptable")
+      callback(null, true)
+    } else {
+      console.log("Origin rejected")
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+app.use(cors(corsOptions))
 app.use(express.json());
 app.use(bodyParser.urlencoded({
   extended:true
